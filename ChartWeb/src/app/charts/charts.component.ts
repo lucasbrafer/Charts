@@ -33,6 +33,8 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
     'rgba(75, 192, 192, 0.5)',
   ];
 
+  private displayChart: boolean = false;
+
   @Input() private type;
 
   private MyChart: any;
@@ -41,16 +43,27 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.colors = this.repeatColor();
+    this.updateStatusLegend();
     this.changeChart();
   }
 
   ngOnChanges(): void {
-    console.log('EVENTO MUDOU', this.type);
+    this.updateStatusLegend();
     this.changeChart();
   }
 
   ngOnDestroy(): void {
     console.log('destroy foi ativado');
+  }
+
+
+  private updateStatusLegend(): void {
+    if(this.type === 'bar' || this.type === 'line') {
+      this.displayChart = false;
+    }
+    else {
+      this.displayChart = true;
+    }
   }
 
   private repeatColor = () => {
@@ -79,7 +92,7 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
       },
       options: {
         legend: {
-          display: false,
+          display: this.displayChart,
         },
       },
     });
