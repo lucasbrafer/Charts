@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ChartWeb"
+    }
+  },
+  "defaultProject": "ChartWeb",
+  "cli": {
+    "analytics": "5adf7f9d-af48-405a-9181-e530bb4350d1"
+  }
 }
