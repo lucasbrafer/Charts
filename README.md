@@ -1,2 +1,2 @@
 # Charts
-Aplicação Angular utilizando diversos gráficos gerados pelo Chart.js 
+Aplicação Angular utilizando gráficos de forma dinâmica gerados pela biblioteca Chart.js 
