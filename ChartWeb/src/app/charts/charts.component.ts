@@ -23,6 +23,8 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
     'rgba(54, 162, 235, 0.5)',
     'rgba(255, 206, 86, 0.5)',
     'rgba(75, 192, 192, 0.5)',
+    'rgba(153, 102, 255, 0.5)',
+    'rgba(255, 159, 64, 0.5)'
   ];
 
   private displayChart: boolean = false;
@@ -104,6 +106,14 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
         legend: {
           display: this.displayChart,
         },
+        scales: {
+          yAxes: [{
+              display: true,
+              ticks: {
+                  suggestedMin: 40,
+              }
+          }]
+        }
       },
     });
   }
