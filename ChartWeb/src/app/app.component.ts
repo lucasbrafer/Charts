@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
 
    public _typeChart: string;
 
-  ngOnInit() {
+  ngOnInit(): any {
     this._typeChart = 'bar';
   }
 

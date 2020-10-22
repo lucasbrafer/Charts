@@ -1,6 +1,8 @@
+import { ChartService } from './charts.service.service';
 import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { Chart } from 'chart.js';
+import { Chart as ChartType } from './charts';
 
 @Component({
   selector: 'app-charts',
@@ -10,23 +12,13 @@ import { Chart } from 'chart.js';
 export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('meuCanvas', { static: true }) elemento: ElementRef;
 
-  private labels: string[] = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Agosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro'];
+  private dados: ChartType[];
 
-  private data: number[] = [85, 62, 86, 81, 84, 86, 94, 60, 62, 65, 41, 58];
+  private labels: string[] = [];
 
-  private colors: string[] = [
+  private valor: number[] = [];
+
+  public colors: string[] = [
     'rgba(255, 99, 132, 0.5)',
     'rgba(54, 162, 235, 0.5)',
     'rgba(255, 206, 86, 0.5)',
@@ -39,23 +31,41 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
 
   private MyChart: any;
 
-  constructor() {} 
+  constructor(private service: ChartService) {}
 
-  ngOnInit(): void {
-    this.colors = this.repeatColor();
-    this.updateStatusLegend();
-    this.changeChart();
+  async ngOnInit() {
+    this.dados = await this.getData();
+    this.FixObjects();
+    this.RefreshChartFunction();
   }
 
   ngOnChanges(): void {
-    this.updateStatusLegend();
-    this.changeChart();
+    this.RefreshChartFunction();
   }
 
   ngOnDestroy(): void {
     console.log('destroy foi ativado');
   }
 
+  private getData(): Promise<ChartType[]> {
+    return this.service.list().toPromise();
+  }
+
+  private FixObjects(): void {
+    this.InsertValusInArray();
+  }
+
+  private RefreshChartFunction(): void {
+    this.updateStatusLegend();
+    this.changeChart();
+  }
+
+  private InsertValusInArray = () => {
+    this.dados.map(dado => {
+      this.labels.push(dado.nome);
+      this.valor.push(dado.valor);
+    });
+  }
 
   private updateStatusLegend(): void {
     if(this.type === 'bar' || this.type === 'line') {
@@ -66,7 +76,7 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private repeatColor = () => {
+  private repeatColor(): any {
     const arRepeatColor = [];
     for (let i = 0; i < this.labels.length; i++) {
       arRepeatColor.push(this.colors[i % this.colors.length]);
@@ -84,8 +94,8 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
         labels: this.labels,
         datasets: [
           {
-            data: this.data,
-            backgroundColor: this.colors,
+            data: this.valor,
+            backgroundColor: this.repeatColor(),
             fill: false,
           },
         ],
