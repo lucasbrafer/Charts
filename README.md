@@ -4,7 +4,7 @@ Aplicação Angular para criação gráficos dinâmicos utilizando como entrada 
 ## Como Executar 🖥️
 1. Clonando o repositório:
 ```sh
-  $ git clone https://github.com/lucasbrafer/Proffy.git
+  $ git clone https://github.com/lucasbrafer/Charts.git
 ```
 
 2. Rodando o projeto
