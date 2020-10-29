@@ -15,6 +15,8 @@ Aplicação Angular para criação gráficos dinâmicos utilizando como entrada 
   $ npm install
   # Rodando aplicação Angular
   $ ng serve
+  # Instalando json-server
+  $ npm install -g json-server
   # Iniciando API
   $ json-server --watch db.json
 ```
